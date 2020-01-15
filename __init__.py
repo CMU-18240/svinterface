@@ -1,4 +1,5 @@
 import svinterface.hdlparse.verilog_parser as vlog
+import os
 
 def __getModNames(moduleArr):
     modNameSet = set()
@@ -119,6 +120,7 @@ def __checkPorts(refMod, testMod):
     return errStr
 
 def checkInterface(refFile, testFile, specificModules=None):
+    hasErr = False
     errMsg = ''
     vlog_ex = vlog.VerilogExtractor()
     vlog_mods_ref = vlog_ex.extract_objects(refFile)
@@ -141,6 +143,7 @@ def checkInterface(refFile, testFile, specificModules=None):
 
     missingMods = modname_ref.difference(modname_test)
     if (len(missingMods) > 0):
+        hasErr = True
         errMsg += 'Missing the following modules:\n'
         for mod in missingMods:
             errMsg += '    ' + str(mod) + '\n'
@@ -157,6 +160,10 @@ def checkInterface(refFile, testFile, specificModules=None):
         if (portErr):
             errMsg += portErr
         if (paramErr) or (portErr):
+            hasErr = True
             errMsg += '\n'
+    if (hasErr):
+        testFileBN = os.path.basename(testFile)
+        errMsg = 'Interface mismatch in file <{}>\n{}'.format(testFileBN, errMsg)
 
     return errMsg.strip()
