@@ -129,16 +129,16 @@ def checkInterface(refFile, testFile, specificModules=None):
     # First we check if all modules are there
     modname_ref = __getModNames(vlog_mods_ref)
     # If we specify modules, then we should make sure the reference file has it
-    if specificModules:
-        missingRef = set(specificModules).difference(modname_ref)
-        if (len(missingRef) > 0):
-            errMsg += 'FATAL: specified modules not found in reference!'
-            for mod in missingRef:
-                errMsg += '    ' + str(mod) + '\n'
-            return errMsg.strip()
-        # Otherwise our new reference set is specified by specificModules
-        else:
-            modname_ref = set(specificModules)
+    #if specificModules:
+    #    missingRef = set(specificModules).difference(modname_ref)
+    #    if (len(missingRef) > 0):
+    #        errMsg += 'FATAL: specified modules not found in reference!'
+    #        for mod in missingRef:
+    #            errMsg += '    ' + str(mod) + '\n'
+    #        return errMsg.strip()
+    #    # Otherwise our new reference set is specified by specificModules
+    #    else:
+    #        modname_ref = set(specificModules)
     modname_test = __getModNames(vlog_mods_test)
 
     missingMods = modname_ref.difference(modname_test)
