@@ -1,4 +1,9 @@
 # SystemVerilog Interface Checker for Python
+### NOTICE
+This tool currently does not meet requirements. The parsing is way too strict,
+with things like slight whitespace variations causing a false negative. More
+work needs to be done in the future.
+
 A handy Python module that can compare two SV files, and ensure that the module
 interfaces match. Particularly good for making sure one doesn't make the mistake
 of mixing up `logic [1:0]` with `logic`, and the like.
